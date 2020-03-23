@@ -4,6 +4,8 @@ import styled from 'styled-components';
 
 import { Tabs, Tab } from '../tabs'
 
+import SerializedTransaction from './serializedTransaction'
+
 
 
 const Container = styled.div`
@@ -23,27 +25,6 @@ const Row = styled.tr`
 const Column = styled.td`
 	padding: 0.3em;
 `
-
-
-type SerializedTransaction = {
-	request: {
-		fresh: boolean,
-		host: string,
-		ip: string,
-		ips: Array<string>,
-		method: string,
-		originalUrl: string,
-		params: Array<string>,
-		query: { [index: string]: string},
-		headers: { [index: string]: string}
-	},
-	response: {
-		code: number,
-		headers: { [index: string]: string}
-	},
-	body: any,
-	metadata: any
-}
 
 type HeaderViewProps = {
 	request: SerializedTransaction

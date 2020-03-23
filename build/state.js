@@ -32,17 +32,17 @@ class State {
     getRestApiRouter() {
         const route = express_1.default.Router();
         route.get('/:uuid', (req, res) => {
-            const uuid = req.params["uuid"];
+            const uuid = req.params.uuid;
             if (typeof this.transactions[uuid] !== 'undefined') {
                 res.json(this.transactions[uuid].serialize());
             }
             else {
-                res.status(404).send("Not found");
+                res.status(404).send('Not found');
             }
         });
         route.get('/', (req, res) => {
             const summary = [];
-            for (let obj in this.transactions) {
+            for (const obj in this.transactions) {
                 summary.push(this.transactions[obj].serializeSummary());
             }
             res.json(summary.reverse());

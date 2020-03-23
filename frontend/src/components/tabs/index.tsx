@@ -50,6 +50,9 @@ export const Tabs: FunctionComponent<TabsProps> = ({children, defaultTab}: TabsP
         { 
           children.map((child) => {
             const ch: any = child as any //Forgive me lord for i have sinned
+            if(ch === undefined || ch === null) {
+              return null;
+            }
             return <TabButton style={ch.props.title==currentTab?{backgroundColor: "rgba(0,0,0,0.2)"}:{}}key={ch.props.title} onClick={() => {
               setCurrentTab(ch.props.title)
             }}>{ch.props.title}</TabButton>
@@ -60,6 +63,9 @@ export const Tabs: FunctionComponent<TabsProps> = ({children, defaultTab}: TabsP
         { 
           children.filter((child) => {
             const ch: any = child as any
+            if(ch === undefined || ch === null) {
+              return null;
+            }
             return ch.props.title == currentTab
           }) 
         }

@@ -44,6 +44,7 @@ const StatusCodeWrapper = styled.div`
 `
 
 type TransactionSummary = {
+  didComplete: boolean,
   uuid: string,
   url: string,
   method: string,
@@ -83,7 +84,12 @@ function StatusCodeIndicator(props: StatusCodeProps) {
 function CreateRequestEntry(summary: TransactionSummary, setUuid: (uuid: string) => void) {
 	return (<EntryContainer key={summary.uuid} onClick={() => { setUuid(summary.uuid); }}>
 		<h3>{summary.url}</h3>
-		<StatusCodeIndicator code={summary.code} /><StatusCodeWrapper>{summary.method}</StatusCodeWrapper>
+		{
+			summary.didComplete 
+			? (<StatusCodeIndicator code={summary.code} />) 
+			: (<StatusCodeWrapper>Internal error</StatusCodeWrapper>)
+		}
+		<StatusCodeWrapper>{summary.method}</StatusCodeWrapper>
 	</EntryContainer>)
 }
 

@@ -1,5 +1,5 @@
-app
-frontend
+/app
+/frontend
 tsconfig.json
 tslint.json
 yarn.lock

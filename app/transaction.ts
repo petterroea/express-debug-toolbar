@@ -16,9 +16,11 @@ class Transaction {
   private response: express.Response;
   private uuid: string;
   // Response info
-  private body: any;
-  private statusCode: number = 404; // If none of our hooks catch it, it was probably a 404.
+  private responseBody: any;
+  private statusCode: number = 0; // If none of our hooks catch it, it was probably a 404.
   private headers: any;
+  private postBody: any;
+  private didComplete: boolean = false;
 
   private start;
   private end;
@@ -29,14 +31,24 @@ class Transaction {
     this.request = request;
     this.response = response;
 
+    let postData = ""
+    request.on('data', (chunk) => {
+      postData += chunk
+    })
+    request.on('end', () => {
+      if(postData.length != 0) {
+        this.postBody = postData
+      }
+    })
+
     this.uuid = uuidv4();
     this.start = new Date();
 
     log(`Created transaction ${this.uuid}`);
   }
 
-  setBody(data: any) {
-    this.body = data;
+  setResponse(data: any) {
+    this.responseBody = data;
   }
 
   setStatus(status: number) {
@@ -45,6 +57,10 @@ class Transaction {
 
   setHeaders(headers: any) {
     this.headers = headers;
+  }
+
+  setDidComplete(flag: boolean) {
+    this.didComplete = flag;
   }
 
   finalize() {
@@ -68,6 +84,7 @@ class Transaction {
 
   serialize() {
     return {
+      didComplete: this.didComplete,
       request: {
         fresh: this.request.fresh,
         host: this.request.hostname,
@@ -78,12 +95,13 @@ class Transaction {
         params: this.request.params,
         query: this.request.query,
         headers: this.request.headers,
+        body: this.postBody
       },
       response: {
         code: this.statusCode,
-        headers: this.headers,
+        headers: typeof this.headers === "undefined" ? {} : this.headers,
+        body: this.responseBody
       },
-      body: this.body,
       metadata: this.metadataCollection,
       start: this.start,
       end: this.end,
@@ -92,6 +110,7 @@ class Transaction {
 
   serializeSummary() {
     return {
+      didComplete: this.didComplete,
       uuid: this.uuid,
       url: this.request.originalUrl,
       method: this.request.method,

@@ -31,18 +31,24 @@ class RequestCatcher {
     // Hook the send() call
     const oldSend = res.send;
     res.send = (message: any): express.Response<any> => {
+      log(`send was called`)
       transaction.setStatus(res.statusCode);
-      transaction.setBody(message);
+      transaction.setResponse(message);
       transaction.setHeaders(res.getHeaders());
-      return oldSend(message);
+      transaction.setDidComplete(true);
+      log(`Send hooking complete`)
+      return oldSend.apply(res, [message]);
     };
 
     const oldJson = res.json;
     res.json = (message: any): express.Response<any> => {
+      log(`json was called`)
       transaction.setStatus(res.statusCode);
-      transaction.setBody(message);
+      transaction.setResponse(message);
       transaction.setHeaders(res.getHeaders());
-      return oldJson(message);
+      transaction.setDidComplete(true);
+      log(`JSON hooking complete`)
+      return oldJson.apply(res, [message]);
     };
 
     try {
@@ -59,7 +65,7 @@ class RequestCatcher {
   private getRouter(): express.Router {
     const route = express.Router();
 
-    route.use(express.static('frontend'));
+    route.use(express.static(__dirname + '/frontend'));
     route.use('/api', DebugState.getRestApiRouter());
 
     route.use((req, res, next) => {

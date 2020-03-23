@@ -8,8 +8,8 @@ const _1 = __importDefault(require("./"));
 const logging_1 = __importDefault(require("./logging"));
 const app = express_1.default();
 _1.default.attach(app);
-app.get('/', (req, res) => {
-    res.send("Yep, it still works!");
+app.all('/', (req, res) => {
+    res.send('Yep, it still works!');
 });
 app.get('/status/:code', (req, res) => {
     const c = parseInt(req.params.code);

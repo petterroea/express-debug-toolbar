@@ -8,7 +8,7 @@ const app = express();
 
 DebugToolbar.attach(app);
 
-app.get('/', (req, res) => {
+app.all('/', (req, res) => {
   res.send('Yep, it still works!');
 });
 

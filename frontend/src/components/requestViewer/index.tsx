@@ -6,7 +6,8 @@ import { Tabs, Tab } from '../tabs'
 
 import HeaderView from './headerView'
 import SummaryView from './summaryView'
-import BodyView from './bodyView'
+import ResponseView from './responseView'
+import VariableView from './variableView'
 
 
 const BodyWrapper = styled.div`
@@ -30,11 +31,13 @@ type SerializedTransaction = {
 		originalUrl: string,
 		params: Array<string>,
 		query: { [index: string]: string},
-		headers: { [index: string]: string}
+		headers: { [index: string]: string},
+		body: any
 	},
 	response: {
 		code: number,
-		headers: { [index: string]: string}
+		headers: { [index: string]: string},
+		body: string
 	},
 	body: any,
 	metadata: any,
@@ -51,9 +54,10 @@ function RequestViewer(props: RequestProps) {
 				<Tabs defaultTab={"Summary"}>
 				    <Tab title="Summary"><SummaryView request={props.request}/></Tab>
 				    <Tab title="Headers"><HeaderView request={props.request}/></Tab>
+				    <Tab title="Variables"><VariableView request={props.request}/></Tab>
 				    { 
 				    	typeof props.request.body !== "undefined" 
-				    	? (<Tab title="Body"><BodyView request={props.request}/></Tab>) 
+				    	? (<Tab title="Response"><ResponseView request={props.request}/></Tab>) 
 				    	: null 
 				    }
 				</Tabs>

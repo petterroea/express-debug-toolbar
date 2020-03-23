@@ -7,20 +7,24 @@ declare class Transaction {
     private request;
     private response;
     private uuid;
-    private body;
+    private responseBody;
     private statusCode;
     private headers;
+    private postBody;
+    private didComplete;
     private start;
     private end;
     private metadataCollection;
     constructor(request: any, response: any);
-    setBody(data: any): void;
+    setResponse(data: any): void;
     setStatus(status: number): void;
     setHeaders(headers: any): void;
+    setDidComplete(flag: boolean): void;
     finalize(): void;
     getUUID(): string;
     attachMetadata(metadata: Metadata): void;
     serialize(): {
+        didComplete: boolean;
         request: {
             fresh: boolean;
             host: string;
@@ -31,17 +35,19 @@ declare class Transaction {
             params: import("express-serve-static-core").ParamsDictionary;
             query: any;
             headers: import("http").IncomingHttpHeaders;
+            body: any;
         };
         response: {
             code: number;
             headers: any;
+            body: any;
         };
-        body: any;
         metadata: MetadataList;
         start: any;
         end: any;
     };
     serializeSummary(): {
+        didComplete: boolean;
         uuid: string;
         url: string;
         method: string;
