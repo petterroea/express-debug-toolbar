@@ -9,9 +9,10 @@ import DebugRequest from './debugRequest';
 import log from './logging';
 
 class RequestCatcher {
-  private app: express.Application;
+  //private app: express.Application;
   attach(app) {
-    this.app = app;
+    log('Attached to express instance');
+    //this.app = app;
     // Attach the router first, so we don't deal with calls to ourselves
     app.use('/_debug/', this.getRouter());
     // Use `bind` to preserve `this`
