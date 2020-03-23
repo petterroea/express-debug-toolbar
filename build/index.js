@@ -26,24 +26,31 @@ class RequestCatcher {
         metadataInjector.transaction = transaction;
         // Hook the send() call
         const oldSend = res.send;
-        res.send = (message) => {
-            logging_1.default(`send was called`);
+        res.send = (...args) => {
             transaction.setStatus(res.statusCode);
-            transaction.setResponse(message);
+            //Compatability with the pre express 4 way of doing it
+            if (args.length == 2) {
+                if (typeof args[0] === "number") {
+                    transaction.setResponse(args[1]);
+                }
+                else {
+                    transaction.setResponse(args[0]);
+                }
+            }
+            else {
+                transaction.setResponse(args[0]);
+            }
             transaction.setHeaders(res.getHeaders());
             transaction.setDidComplete(true);
-            logging_1.default(`Send hooking complete`);
-            return oldSend.apply(res, [message]);
+            return oldSend.apply(res, args);
         };
         const oldJson = res.json;
-        res.json = (message) => {
-            logging_1.default(`json was called`);
+        res.json = (...args) => {
             transaction.setStatus(res.statusCode);
-            transaction.setResponse(message);
+            transaction.setResponse(args[0]);
             transaction.setHeaders(res.getHeaders());
             transaction.setDidComplete(true);
-            logging_1.default(`JSON hooking complete`);
-            return oldJson.apply(res, [message]);
+            return oldJson.apply(res, args);
         };
         try {
             next();

@@ -6,7 +6,7 @@ export default interface SerializedTransaction {
 		ips: Array<string>,
 		method: string,
 		originalUrl: string,
-		params: Array<string>,
+		params: { [index: string]: string},
 		query: { [index: string]: string},
 		headers: { [index: string]: string},
 		body: any

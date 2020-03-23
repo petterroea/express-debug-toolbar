@@ -39,6 +39,7 @@ type VariableViewProps = {
 
 function VariableView(props: VariableViewProps) {
 	const getParameters = props.request.request.query
+	const params = props.request.request.params
 	const postParameters = props.request.request.body
 	return (<Container>
 				<h1>GET parameters</h1>
@@ -55,6 +56,28 @@ function VariableView(props: VariableViewProps) {
 						</tbody>
 					</HeaderTable>
 					<p><i>{Object.keys(getParameters).length} {Object.keys(getParameters).length==1?"Entry":"Entries"}</i></p>
+				{
+					typeof params !== "undefined"
+					? (
+						<div>
+							<h1>Params</h1>
+							<HeaderTable>
+								<tbody>
+									{
+										Object.keys(params).map(key => {
+											return (<Row key={key}>
+												<Column>{key}</Column>
+												<Column>{params[key]}</Column>
+											</Row>)
+										})
+									}
+								</tbody>
+							</HeaderTable>
+							<p><i>{Object.keys(params).length} {Object.keys(params).length==1?"Entry":"Entries"}</i></p>
+						</div>
+					)
+					: null
+				}
 				{
 					typeof props.request.request.body !== "undefined"
 					? (

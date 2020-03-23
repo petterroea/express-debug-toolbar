@@ -9,6 +9,7 @@ import SummaryView from './summaryView'
 import ResponseView from './responseView'
 import VariableView from './variableView'
 
+import SerializedTransaction from './serializedTransaction'
 
 const BodyWrapper = styled.div`
 
@@ -20,30 +21,6 @@ const BodyFlexContainer = styled.div`
 	display: flex;
 	flex-grow: 1;
 `
-
-type SerializedTransaction = {
-	request: {
-		fresh: boolean,
-		host: string,
-		ip: string,
-		ips: Array<string>,
-		method: string,
-		originalUrl: string,
-		params: Array<string>,
-		query: { [index: string]: string},
-		headers: { [index: string]: string},
-		body: any
-	},
-	response: {
-		code: number,
-		headers: { [index: string]: string},
-		body: string
-	},
-	body: any,
-	metadata: any,
-	start: string,
-	end: string
-}
 
 type RequestProps = {
 	request: SerializedTransaction

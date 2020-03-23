@@ -33,7 +33,13 @@ function ResponseView(props: ResponseViewProps) {
 					? props.request.response.body
 					: (
 						(typeof props.request.response.body === "object")
-						? JSON.stringify(props.request.response.body)
+						? (
+							JSON.stringify(props.request.response.body, null, 4)
+								.split("\n")
+								.map((line: string) => {
+									return (<p>{line}</p>)
+								})
+						)
 						: (<i>Unknown body type</i>)
 					) 
 				}

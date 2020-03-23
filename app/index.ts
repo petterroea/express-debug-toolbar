@@ -30,21 +30,32 @@ class RequestCatcher {
 
     // Hook the send() call
     const oldSend = res.send;
-    res.send = (message: any): express.Response<any> => {
+    res.send = (...args: any[]): express.Response<any> => {
       transaction.setStatus(res.statusCode);
-      transaction.setResponse(message);
+
+      //Compatability with the pre express 4 way of doing it
+      if (args.length == 2) {
+        if(typeof args[0] === "number") {
+          transaction.setResponse(args[1]);
+        } else {
+          transaction.setResponse(args[0]);
+        }
+      } else {
+        transaction.setResponse(args[0]);
+      }
+
       transaction.setHeaders(res.getHeaders());
       transaction.setDidComplete(true);
-      return oldSend.apply(res, [message]);
+      return oldSend.apply(res, args);
     };
 
     const oldJson = res.json;
-    res.json = (message: any): express.Response<any> => {
+    res.json = (...args): express.Response<any> => {
       transaction.setStatus(res.statusCode);
-      transaction.setResponse(message);
+      transaction.setResponse(args[0]);
       transaction.setHeaders(res.getHeaders());
       transaction.setDidComplete(true);
-      return oldJson.apply(res, [message]);
+      return oldJson.apply(res, args);
     };
 
     try {
