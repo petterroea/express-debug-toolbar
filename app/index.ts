@@ -31,23 +31,19 @@ class RequestCatcher {
     // Hook the send() call
     const oldSend = res.send;
     res.send = (message: any): express.Response<any> => {
-      log(`send was called`)
       transaction.setStatus(res.statusCode);
       transaction.setResponse(message);
       transaction.setHeaders(res.getHeaders());
       transaction.setDidComplete(true);
-      log(`Send hooking complete`)
       return oldSend.apply(res, [message]);
     };
 
     const oldJson = res.json;
     res.json = (message: any): express.Response<any> => {
-      log(`json was called`)
       transaction.setStatus(res.statusCode);
       transaction.setResponse(message);
       transaction.setHeaders(res.getHeaders());
       transaction.setDidComplete(true);
-      log(`JSON hooking complete`)
       return oldJson.apply(res, [message]);
     };
 

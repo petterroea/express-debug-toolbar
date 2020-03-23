@@ -56,7 +56,7 @@ function RequestViewer(props: RequestProps) {
 				    <Tab title="Headers"><HeaderView request={props.request}/></Tab>
 				    <Tab title="Variables"><VariableView request={props.request}/></Tab>
 				    { 
-				    	typeof props.request.body !== "undefined" 
+				    	typeof props.request.response.body !== "undefined" 
 				    	? (<Tab title="Response"><ResponseView request={props.request}/></Tab>) 
 				    	: null 
 				    }
