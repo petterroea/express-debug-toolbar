@@ -11,12 +11,11 @@
     "expressjs"
   ],
   "repository": {
-    "type" : "git",
-    "url" : "https://github.com/petterroea/express-debug-toolbar.git"
+    "type": "git",
+    "url": "https://github.com/petterroea/express-debug-toolbar.git"
   },
   "dependencies": {
     "express": "^4.17.1",
-    "typescript": "^3.8.3",
     "uuid": "^7.0.2"
   },
   "scripts": {
@@ -31,6 +30,7 @@
     "prettier": "^2.0.1",
     "ts-node-dev": "^1.0.0-pre.44",
     "tslint": "^6.1.0",
-    "tslint-config-prettier": "^1.18.0"
+    "tslint-config-prettier": "^1.18.0",
+    "typescript": "^3.8.3"
   }
 }
