@@ -8,6 +8,7 @@ import HeaderView from './headerView'
 import SummaryView from './summaryView'
 import ResponseView from './responseView'
 import VariableView from './variableView'
+import DumpView from './dumpView'
 
 import SerializedTransaction from './serializedTransaction'
 
@@ -32,6 +33,7 @@ function RequestViewer(props: RequestProps) {
 				    <Tab title="Summary"><SummaryView request={props.request}/></Tab>
 				    <Tab title="Headers"><HeaderView request={props.request}/></Tab>
 				    <Tab title="Variables"><VariableView request={props.request}/></Tab>
+					<Tab title="HTTP dump"><DumpView request={props.request}/></Tab>
 				    { 
 				    	typeof props.request.response.body !== "undefined" 
 				    	? (<Tab title="Response"><ResponseView request={props.request}/></Tab>) 

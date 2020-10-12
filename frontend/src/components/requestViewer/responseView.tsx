@@ -6,6 +6,8 @@ import { Tabs, Tab } from '../tabs'
 
 import SerializedTransaction from './serializedTransaction'
 
+import { ViewerTitle } from './common'
+
 const Container = styled.div`
 padding: 1em;
 font-family: 'Roboto', sans-serif;
@@ -26,7 +28,7 @@ function ResponseView(props: ResponseViewProps) {
 	const startDate = new Date(props.request.start)
 	const endDate = new Date(props.request.end)
 	return (<Container>
-				<h1>Response body</h1>
+				<ViewerTitle>Response body</ViewerTitle>
 				<Code>
 				{
 					(typeof props.request.response.body === "string")

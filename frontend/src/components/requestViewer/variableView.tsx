@@ -6,6 +6,8 @@ import { Tabs, Tab } from '../tabs'
 
 import SerializedTransaction from './serializedTransaction'
 
+import { ViewerTitle } from './common'
+
 const Container = styled.div`
 padding: 1em;
 font-family: 'Roboto', sans-serif;
@@ -42,7 +44,7 @@ function VariableView(props: VariableViewProps) {
 	const params = props.request.request.params
 	const postParameters = props.request.request.body
 	return (<Container>
-				<h1>GET parameters</h1>
+				<ViewerTitle>GET parameters</ViewerTitle>
 					<HeaderTable>
 						<tbody>
 							{
@@ -60,7 +62,7 @@ function VariableView(props: VariableViewProps) {
 					typeof params !== "undefined"
 					? (
 						<div>
-							<h1>Params</h1>
+							<ViewerTitle>Params</ViewerTitle>
 							<HeaderTable>
 								<tbody>
 									{
@@ -82,7 +84,7 @@ function VariableView(props: VariableViewProps) {
 					typeof props.request.request.body !== "undefined"
 					? (
 						<div>
-							<h1>POST body</h1>
+							<ViewerTitle>POST body</ViewerTitle>
 							<Code>{postParameters}</Code>
 						</div>
 					)

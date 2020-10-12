@@ -6,11 +6,20 @@ import Body from './components/body'
 import styled from 'styled-components';
 
 const AppWrapper = styled.div`
-width: 100%;
+position: fixed;
+top: 0;
+left: 0;
+bottom: 0;
+right: 0;
+overflow: auto;
+
+
 background-color: #37474F;
 margin: 0px;
-display: flex;
+
+display:flex;
 flex-direction: column;
+
 `
 
 function App() {

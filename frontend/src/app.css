@@ -1,4 +1,13 @@
+html,body { 
+	height: 100%;
+	margin: 0;
+}
+
 body {
 	margin: 0px;
 	padding: 0px;
+}
+
+#root {
+	min-height: 100%;
 }

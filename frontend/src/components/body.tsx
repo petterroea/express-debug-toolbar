@@ -36,7 +36,7 @@ function Body() {
 	let placeholder = (<h1>Select a request to begin</h1>)
 
 	return (<BodyFlexContainer>
-				<Sidebar setUuid={changeState} />
+				<Sidebar setUuid={changeState} selectedUuid={currentUuid}/>
 				<BodyWrapper>
 					{ loading ? 
 						(<p>Loading...</p>) : 

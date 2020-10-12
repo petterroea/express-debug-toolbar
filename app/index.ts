@@ -32,6 +32,7 @@ class RequestCatcher {
     const oldSend = res.send;
     res.send = (...args: any[]): express.Response<any> => {
       transaction.setStatus(res.statusCode);
+      log(`Got SEND request: ${args}`);
 
       //Compatability with the pre express 4 way of doing it
       if (args.length == 2) {

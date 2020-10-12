@@ -6,7 +6,7 @@ import { Tabs, Tab } from '../tabs'
 
 import SerializedTransaction from './serializedTransaction'
 
-
+import { ViewerTitle } from './common'
 
 const Container = styled.div`
 padding: 1em;
@@ -34,7 +34,7 @@ function HeaderView(props: HeaderViewProps) {
 	const reqHeaders = props.request.request.headers
 	const respHeaders = props.request.response.headers
 	return (<Container>
-				<h1>Request headers</h1>
+				<ViewerTitle>Request headers</ViewerTitle>
 					<HeaderTable>
 						<tbody>
 							{
@@ -47,7 +47,7 @@ function HeaderView(props: HeaderViewProps) {
 							}
 						</tbody>
 					</HeaderTable>
-				<h1>Response headers</h1>
+				<ViewerTitle>Response headers</ViewerTitle>
 				<HeaderTable>
 					<tbody>
 						{
